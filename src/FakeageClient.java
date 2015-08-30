@@ -6,10 +6,29 @@ import com.flipturnapps.kevinLibrary.net.KServer;
 
 public class FakeageClient extends ClientData
 {
-
-	public FakeageClient(Socket socket, KServer<?> server) throws IOException {
+	private boolean isLegit = false;
+	public FakeageClient(Socket socket, KServer<?> server) throws IOException 
+	{
 		super(socket, server);
-		// TODO Auto-generated constructor stub
+	}
+
+	public void dealWithInput(String input) 
+	{
+		if(!isLegit())
+		{
+			if(input.equalsIgnoreCase(this.server))
+		}
+			
+	}
+
+	public boolean isLegit() 
+	{
+		return isLegit;
+	}
+
+	public void setLegit(boolean isLegit)
+	{
+		this.isLegit = isLegit;
 	}
 
 }
