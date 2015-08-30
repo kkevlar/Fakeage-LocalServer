@@ -6,14 +6,14 @@ import java.util.logging.Logger;
 
 import com.flipturnapps.kevinLibrary.net.KServer;
 
-public class Server extends KServer<FakeageClient> 
+public class FakeageServer extends KServer<FakeageClient> 
 {
 
 	private static final int FAKEAGE_PORT = 23454;
 	private Logger anonymousLogger;
 	private String password;
 
-	public Server(String password) throws IOException
+	public FakeageServer(String password) throws IOException
 	{
 		super(FAKEAGE_PORT);
 		this.setPassword(password);

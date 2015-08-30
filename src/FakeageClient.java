@@ -6,8 +6,8 @@ import com.flipturnapps.kevinLibrary.net.ClientData;
 public class FakeageClient extends ClientData
 {
 	private boolean isLegit = false;
-	private Server fakeageServer;
-	public FakeageClient(Socket socket, Server server) throws IOException 
+	private FakeageServer fakeageServer;
+	public FakeageClient(Socket socket, FakeageServer server) throws IOException 
 	{
 		super(socket, server);
 		this.setFakeageServer(server);
@@ -35,11 +35,11 @@ public class FakeageClient extends ClientData
 		this.isLegit = isLegit;
 	}
 
-	public Server getFakeageServer() {
+	public FakeageServer getFakeageServer() {
 		return fakeageServer;
 	}
 
-	public void setFakeageServer(Server fakeageServer) {
+	public void setFakeageServer(FakeageServer fakeageServer) {
 		this.fakeageServer = fakeageServer;
 	}
 
