@@ -30,7 +30,7 @@ public class Server extends KServer<FakeageClient>
 	{
 		try 
 		{
-			return new FakeageClient(socket, kServer);
+			return new FakeageClient(socket, this);
 		} 
 		catch (IOException e)
 		{
