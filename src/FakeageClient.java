@@ -21,7 +21,9 @@ public class FakeageClient extends ClientData
 				this.setLegit(true);
 			else
 				this.setLegit(false);
+			return;
 		}
+		
 			
 	}
 
