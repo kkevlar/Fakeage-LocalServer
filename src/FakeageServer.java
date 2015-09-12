@@ -23,6 +23,7 @@ public class FakeageServer extends KServer<FakeageClient>
 	protected void newMessage(String message, FakeageClient client) 
 	{
 		client.dealWithInput(message);
+		System.out.println("msg. " + message);
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class FakeageServer extends KServer<FakeageClient>
 	@Override
 	protected void newClient(FakeageClient data)
 	{
-
+		System.out.println("ello i got new client");
 	}
 
 	public String getPassword()
