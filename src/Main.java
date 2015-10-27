@@ -4,7 +4,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException
 	{
-		FakeageServer server = new FakeageServer(args[0]);
+		LocalServer server = new LocalServer(args[0]);
 	}
 
 }

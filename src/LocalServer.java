@@ -6,32 +6,32 @@ import java.util.logging.Logger;
 
 import com.flipturnapps.kevinLibrary.net.KServer;
 
-public class FakeageServer extends KServer<FakeageClient> 
+public class LocalServer extends KServer<LocalClient> 
 {
 
 	private static final int FAKEAGE_PORT = 23454;
 	private Logger anonymousLogger;
 	private String password;
 
-	public FakeageServer(String password) throws IOException
+	public LocalServer(String password) throws IOException
 	{
 		super(FAKEAGE_PORT);
 		this.setPassword(password);
 	}
 
 	@Override
-	protected void newMessage(String message, FakeageClient client) 
+	protected void newMessage(String message, LocalClient client) 
 	{
 		client.dealWithInput(message);
 		System.out.println("msg. " + message);
 	}
 
 	@Override
-	protected FakeageClient getNewClientData(Socket socket, KServer<FakeageClient> kServer) 
+	protected LocalClient getNewClientData(Socket socket, KServer<LocalClient> kServer) 
 	{
 		try 
 		{
-			return new FakeageClient(socket, this);
+			return new LocalClient(socket, this);
 		} 
 		catch (IOException e)
 		{
@@ -48,7 +48,7 @@ public class FakeageServer extends KServer<FakeageClient>
 	}
 
 	@Override
-	protected void newClient(FakeageClient data)
+	protected void newClient(LocalClient data)
 	{
 		System.out.println("ello i got new client");
 	}

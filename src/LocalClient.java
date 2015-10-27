@@ -4,14 +4,17 @@ import java.net.Socket;
 
 import com.flipturnapps.kevinLibrary.net.ClientData;
 
-public class FakeageClient extends ClientData
+public class LocalClient extends ClientData implements Player
 {
 	private static final boolean SHOULD_SEND_UR_LEGIT_MESSAGE = true;
 	private static final String UR_LEGIT = "Ur legit!";
 	private boolean isLegit = false;
-	private FakeageServer fakeageServer;
+	private LocalServer fakeageServer;
 	private PrintWriter writer;
-	public FakeageClient(Socket socket, FakeageServer server) throws IOException 
+	private String choice;
+	private int id;
+	private int points;
+	public LocalClient(Socket socket, LocalServer server) throws IOException 
 	{
 		super(socket, server);
 		this.setFakeageServer(server);
@@ -35,7 +38,10 @@ public class FakeageClient extends ClientData
 				return;
 			}	
 		}
-
+		else if(!input.equals(""))
+		{
+			this.choice = input;
+		}
 	}
 
 	public boolean isLegit() 
@@ -48,12 +54,62 @@ public class FakeageClient extends ClientData
 		this.isLegit = isLegit;
 	}
 
-	public FakeageServer getFakeageServer() {
+	public LocalServer getFakeageServer() {
 		return fakeageServer;
 	}
 
-	public void setFakeageServer(FakeageServer fakeageServer) {
+	public void setFakeageServer(LocalServer fakeageServer) {
 		this.fakeageServer = fakeageServer;
 	}
+
+	@Override
+	public void sayTo(String s) 
+	{
+		this.sendMessage(s);
+	}
+
+	@Override
+	public String getChoice() 
+	{
+		return this.choice;
+	}
+
+	@Override
+	public boolean hasChoice() 
+	{
+		return choice != null;
+	}
+
+	@Override
+	public void resetChoice() 
+	{
+		choice = null;
+	}
+
+	@Override
+	public void setId(int i) 
+	{
+		id = i;
+
+	}
+
+	@Override
+	public int getId() 
+	{
+		return id;
+
+	}
+
+	public int getPoints() 
+	{
+		return points;
+	}
+
+	public void setPoints(int points) 
+	{
+		this.points = points;
+	}
+
+	
 
 }
