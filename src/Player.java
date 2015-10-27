@@ -9,4 +9,5 @@ public interface Player
 	public int getId();
 	public void setPoints(int i);
 	public int getPoints();
+	public void truth(String s);
 }

@@ -2,24 +2,24 @@
 public class Question 
 {
 	private String questionText;
-	private String answer;
-	private String[] lies;
+	private String truth;
+	private Lie[] lies;
 	public String getQuestionText() {
 		return questionText;
 	}
 	public void setQuestionText(String questionText) {
 		this.questionText = questionText;
 	}
-	public String getAnswer() {
-		return answer;
+	public String getTruth() {
+		return truth;
 	}
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setTruth(String truth) {
+		this.truth = truth;
 	}
-	public String[] getLies() {
+	public Lie[] getLies() {
 		return lies;
 	}
-	public void setLies(String[] lies) {
+	public void setLies(Lie[] lies) {
 		this.lies = lies;
 	}
 	

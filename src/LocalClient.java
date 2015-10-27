@@ -8,12 +8,14 @@ public class LocalClient extends ClientData implements Player
 {
 	private static final boolean SHOULD_SEND_UR_LEGIT_MESSAGE = true;
 	private static final String UR_LEGIT = "Ur legit!";
+	private static final String FOUND_TRUTH_MESSAGE = "Dats the truth!";
 	private boolean isLegit = false;
 	private LocalServer fakeageServer;
 	private PrintWriter writer;
 	private String choice;
 	private int id;
 	private int points;
+	private String truth;
 	public LocalClient(Socket socket, LocalServer server) throws IOException 
 	{
 		super(socket, server);
@@ -40,8 +42,16 @@ public class LocalClient extends ClientData implements Player
 		}
 		else if(!input.equals(""))
 		{
-			this.choice = input;
+			setChoice(input);
 		}
+	}
+
+	private void setChoice(String input) 
+	{
+		if(input.equalsIgnoreCase(truth))
+			this.sendMessage(FOUND_TRUTH_MESSAGE);
+		else
+			this.choice = input;
 	}
 
 	public boolean isLegit() 
@@ -110,6 +120,12 @@ public class LocalClient extends ClientData implements Player
 		this.points = points;
 	}
 
-	
+	@Override
+	public void truth(String s) 
+	{
+	this.truth = s;
+	}
+
+
 
 }
