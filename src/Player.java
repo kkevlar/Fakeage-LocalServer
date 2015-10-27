@@ -10,4 +10,6 @@ public interface Player
 	public void setPoints(int i);
 	public int getPoints();
 	public void truth(String s);
+	public void holdResponseData(ResponseData choice);
+	public ResponseData getResponseData();
 }

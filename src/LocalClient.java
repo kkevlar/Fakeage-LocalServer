@@ -16,6 +16,7 @@ public class LocalClient extends ClientData implements Player
 	private int id;
 	private int points;
 	private String truth;
+	private ResponseData data;
 	public LocalClient(Socket socket, LocalServer server) throws IOException 
 	{
 		super(socket, server);
@@ -126,6 +127,15 @@ public class LocalClient extends ClientData implements Player
 	this.truth = s;
 	}
 
+	@Override
+	public void holdResponseData(ResponseData choice)
+	{
+		this.data = choice;		
+	}
 
-
+	@Override
+	public ResponseData getResponseData() 
+	{
+		return this.data;
+	}
 }
