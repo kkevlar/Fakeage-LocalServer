@@ -84,10 +84,31 @@ public class GameCore
 			System.out.print(currPair.getPlayers() + " chose " + currPair.getSharedChoice().getText());
 			for(int i = 0; i < 5; i++)
 			{
-				Thread.sleep(1000);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				System.out.print(".");
 			}
-			//say whos lie/truth
+			String description = "";
+			if(!currPair.getSharedChoice().isLie())
+				description = "The TRUTH!";
+			else
+			{
+				Lie lie = (Lie) currPair.getSharedChoice();
+				for(int i = 0; i < lie.getOrigins().length; i++)
+				{
+					if(i != 0)
+					{
+						description += " And ";
+					}
+					description += lie.getOrigins()[i].getName()+"'s";
+				}
+				description +=" Lie";
+			}
+			System.out.println(description);
 		}
 	}
 	private void validateAllChoices(ResponseData[] choices)

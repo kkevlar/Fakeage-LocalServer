@@ -12,4 +12,6 @@ public interface Player
 	public void truth(String s);
 	public void holdResponseData(ResponseData choice);
 	public ResponseData getResponseData();
+	public String getName();
+	public void setName(String nm);
 }
