@@ -6,10 +6,7 @@ import com.flipturnapps.kevinLibrary.net.ClientData;
 
 public class LocalClient extends ClientData implements Player
 {
-	private static final boolean SHOULD_SEND_UR_LEGIT_MESSAGE = true;
-	private static final String UR_LEGIT = "Ur legit!";
 	private static final String FOUND_TRUTH_MESSAGE = "Dats the truth!";
-	private boolean isLegit = false;
 	private LocalServer fakeageServer;
 	private PrintWriter writer;
 	private String choice;
@@ -23,28 +20,21 @@ public class LocalClient extends ClientData implements Player
 		super(socket, server);
 		this.setFakeageServer(server);
 		writer = new PrintWriter(socket.getOutputStream());
+		writer.println("Name pls?");
 	}
 
 	public void dealWithInput(String input) 
-	{
-		if(!isLegit() && input != null)
+	{	
+		if(input != null && !input.equals(""))
 		{
-			if(input.equalsIgnoreCase(this.getFakeageServer().getPassword()))
+			if(this.getName() == null)
 			{
-				this.setLegit(true);
-				if(SHOULD_SEND_UR_LEGIT_MESSAGE)
-				{
-					writer.println(UR_LEGIT);
-					writer.flush();
-				}
-				else
-					this.setLegit(false);
-				return;
-			}	
-		}
-		else if(input != null && !input.equals(""))
-		{
-			setChoice(input);
+				this.setName(input);
+			}
+			else
+			{
+				setChoice(input);
+			}
 		}
 	}
 
@@ -54,16 +44,6 @@ public class LocalClient extends ClientData implements Player
 			this.sendMessage(FOUND_TRUTH_MESSAGE);
 		else
 			this.choice = input;
-	}
-
-	public boolean isLegit() 
-	{
-		return isLegit;
-	}
-
-	public void setLegit(boolean isLegit)
-	{
-		this.isLegit = isLegit;
 	}
 
 	public LocalServer getFakeageServer() {

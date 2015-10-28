@@ -9,14 +9,12 @@ import com.flipturnapps.kevinLibrary.net.KServer;
 public class LocalServer extends KServer<LocalClient> 
 {
 
-	private static final int FAKEAGE_PORT = 23454;
+	private static final int FAKEAGE_PORT = 25565;
 	private Logger anonymousLogger;
-	private String password;
 
 	public LocalServer(String password) throws IOException
 	{
 		super(FAKEAGE_PORT);
-		this.setPassword(password);
 	}
 
 	@Override
@@ -51,16 +49,6 @@ public class LocalServer extends KServer<LocalClient>
 	protected void newClient(LocalClient data)
 	{
 		System.out.println("ello i got new client");
-	}
-
-	public String getPassword()
-	{
-		return password;
-	}
-
-	public void setPassword(String password)
-	{
-		this.password = password;
 	}
 
 }
