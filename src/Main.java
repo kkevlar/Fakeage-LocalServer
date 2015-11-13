@@ -13,7 +13,7 @@ public class Main implements QuestionPool
 	{
 		LocalServer server = new LocalServer();
 		//int count = Integer.parseInt(args[0]);
-		int count = 1;
+		int count = 3;
 		boolean namesOK = false;
 		while(count > server.getClientCount() ||  !namesOK)
 		{

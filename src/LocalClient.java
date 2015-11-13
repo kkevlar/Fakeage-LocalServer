@@ -141,5 +141,9 @@ public class LocalClient extends ClientData implements Player
 	public void setTellTruth(boolean tellTruth) {
 		this.tellTruth = tellTruth;
 	}
+	public String toString()
+	{
+		return this.getName();
+	}
 
 }

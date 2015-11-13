@@ -16,4 +16,9 @@ public class ChoicePair
 	public void setSharedChoice(ResponseData sharedChoice) {
 		this.sharedChoice = sharedChoice;
 	}
+	@Override
+	public String toString() {
+		return "ChoicePair [players=" + players + ", sharedChoice=" + sharedChoice + "]";
+	}
+	
 }

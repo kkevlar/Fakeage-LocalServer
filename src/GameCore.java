@@ -72,6 +72,7 @@ public class GameCore
 				ChoicePair newChoice = new ChoicePair();
 				newChoice.setSharedChoice(players[x].getResponseData());
 				newChoice.getPlayers().add(players[x]);
+				pairs.add(newChoice);
 			}
 		}
 		showFaiureDoPoints(pairs);
@@ -80,6 +81,7 @@ public class GameCore
 	private void showFaiureDoPoints(ArrayList<ChoicePair> pairs) 
 	{
 		System.out.println("Results: ");
+		System.out.println("Pairs: " + pairs);
 		while(!pairs.isEmpty())	
 		{
 			int index = (int) (Math.random() * pairs.size());
