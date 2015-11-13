@@ -10,8 +10,8 @@ public class GameCore
 	//private static final int roundCount = 1;
 	private static final int truthPoints = 10;
 	private static final int foolPoints = 5;
-	private static final long foolTimer = 5000;
-	private static final long truthTimer = 5000;
+	private static final long foolTimer = 10000;
+	private static final long truthTimer = 10000;
 	public GameCore(Player[] players, QuestionPool pool)
 	{
 		this.players = players;
@@ -22,6 +22,7 @@ public class GameCore
 		resetPoints();
 		Question question = qpool.getQuestion();
 		tellTruth(question);
+		System.out.println(question.getQuestionText() + "|" + question.getTruth());
 		tellQuestion(question);
 		try {
 			Thread.sleep(foolTimer);
@@ -30,12 +31,16 @@ public class GameCore
 			e.printStackTrace();
 		}
 		Lie[] lies = getLies(question);
+		System.out.println("lielength:" + lies.length);
 		ResponseData[] allChoices = new ResponseData[lies.length + 1];
 		int[] newIndecies = NumberScrambler.scrambledArray(allChoices.length);
+		for (int i = 0; i < newIndecies.length; i++) {
+			System.out.println(newIndecies[i]);
+		}
 		allChoices[newIndecies[0]] = new Truth(question.getTruth());
 		for (int i = 1; i < newIndecies.length; i++) 
 		{
-			allChoices[newIndecies[i]] = lies[i];
+			allChoices[newIndecies[i]] = lies[i-1];
 		}
 		sayAllToAll(allChoices);
 		try {
@@ -124,7 +129,10 @@ public class GameCore
 				for(int y = 0; y < choices.length; y++)
 				{
 					if(choice.equalsIgnoreCase(choices[y].getText()))
+					{
 						player.holdResponseData(choices[y]);
+						System.out.println("player " + player.getName() + " is holding responsedata:" + player.getResponseData());
+					}
 				}
 			}
 		}
@@ -134,6 +142,7 @@ public class GameCore
 		for(int x = 0; x < players.length; x++)
 		{
 			Player player = players[x];
+			player.setTellTruth(false);
 			player.sayTo("Answer choices: ");
 			for(int y = 0; y < allChoices.length; y++)
 			{
@@ -146,11 +155,15 @@ public class GameCore
 		ArrayList<Lie> liesList = new ArrayList<Lie>();
 		for (int i = 0; i < players.length; i++) 
 		{
-			Lie lie = new Lie(players[i].getChoice(),players[i]);
-			if(lie != null && !(lie.equals("")) &&!lie.getText().equalsIgnoreCase(question.getTruth()))
+			Player currPlayer = players[i];
+			System.out.println(currPlayer.getName() + ": " + currPlayer.getChoice());
+			Lie lie = new Lie(currPlayer.getChoice(),currPlayer);
+			if(lie != null && 
+					!(lie.equals("")) &&
+					!lie.getText().equalsIgnoreCase(question.getTruth()))
 			{ 
 				if(!(liesList.contains(lie)))
-				liesList.add(lie);
+					liesList.add(lie);
 				else
 				{
 					for(int x = 0; x < liesList.size(); x++)
@@ -163,13 +176,13 @@ public class GameCore
 							{
 								nor[y] = or[y];
 							}
-							nor[or.length] = players[i];
+							nor[or.length] = currPlayer;
 							liesList.get(x).setOrigins(nor);
 						}
 					}
 				}
 			}
-			players[i].resetChoice();
+			currPlayer.resetChoice();
 		}
 		int count = 0;
 		while (liesList.size() < players.length && count < question.getLies().length)
@@ -191,6 +204,7 @@ public class GameCore
 		for (int i = 0; i < players.length; i++) 
 		{
 			players[i].sayTo(q.getQuestionText());
+			players[i].setTellTruth(true);
 			players[i].resetChoice();
 		}
 	}

@@ -2,24 +2,26 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import com.flipturnapps.kevinLibrary.helper.FlushWriter;
 import com.flipturnapps.kevinLibrary.net.ClientData;
 
 public class LocalClient extends ClientData implements Player
 {
 	private static final String FOUND_TRUTH_MESSAGE = "Dats the truth!";
 	private LocalServer fakeageServer;
-	private PrintWriter writer;
+	private FlushWriter writer;
 	private String choice;
 	private int id;
 	private int points;
 	private String truth;
 	private ResponseData data;
 	private String name;
+	private boolean tellTruth;
 	public LocalClient(Socket socket, LocalServer server) throws IOException 
 	{
 		super(socket, server);
 		this.setFakeageServer(server);
-		writer = new PrintWriter(socket.getOutputStream());
+		writer = new FlushWriter(socket.getOutputStream());
 		writer.println("Name pls?");
 	}
 
@@ -40,7 +42,7 @@ public class LocalClient extends ClientData implements Player
 
 	private void setChoice(String input) 
 	{
-		if(input.equalsIgnoreCase(truth))
+		if(input.equalsIgnoreCase(truth) && this.shouldTellTruth())
 			this.sendMessage(FOUND_TRUTH_MESSAGE);
 		else
 			this.choice = input;
@@ -57,7 +59,7 @@ public class LocalClient extends ClientData implements Player
 	@Override
 	public void sayTo(String s) 
 	{
-		this.sendMessage(s);
+		this.writer.println(s);
 	}
 
 	@Override
@@ -131,4 +133,13 @@ public class LocalClient extends ClientData implements Player
 	{
 		name = nm;
 	}
+
+	public boolean shouldTellTruth() {
+		return tellTruth;
+	}
+
+	public void setTellTruth(boolean tellTruth) {
+		this.tellTruth = tellTruth;
+	}
+
 }

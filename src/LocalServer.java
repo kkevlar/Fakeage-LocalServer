@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.net.Socket;
-import java.net.SocketImpl;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -9,10 +8,10 @@ import com.flipturnapps.kevinLibrary.net.KServer;
 public class LocalServer extends KServer<LocalClient> 
 {
 
-	private static final int FAKEAGE_PORT = 25565;
+	private static final int FAKEAGE_PORT = 25568;
 	private Logger anonymousLogger;
 
-	public LocalServer(String password) throws IOException
+	public LocalServer() throws IOException
 	{
 		super(FAKEAGE_PORT);
 	}
