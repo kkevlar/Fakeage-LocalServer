@@ -14,4 +14,7 @@ public interface Player
 	public ResponseData getResponseData();
 	public String getName();
 	public void setName(String nm);
+	public void setTellTruth(boolean b);
+	public boolean shouldTellTruth();
+	public String toString();
 }

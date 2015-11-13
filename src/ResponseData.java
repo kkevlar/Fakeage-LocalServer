@@ -24,10 +24,15 @@ public abstract class ResponseData
 		if (object instanceof ResponseData)
 		{
 			ResponseData response = (ResponseData) object;
-			if(response.getText().equalsIgnoreCase(this.getText()));
-			return true;
+			if(response.getText().equalsIgnoreCase(this.getText()))
+				return true;
 		}
 		return false;
 		
 	}
+	@Override
+	public String toString() {
+		return "ResponseData [text=" + text + ", isLie()=" + isLie() + "]";
+	}
+	
 }

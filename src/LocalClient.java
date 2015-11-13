@@ -2,68 +2,50 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import com.flipturnapps.kevinLibrary.helper.FlushWriter;
 import com.flipturnapps.kevinLibrary.net.ClientData;
 
 public class LocalClient extends ClientData implements Player
 {
-	private static final boolean SHOULD_SEND_UR_LEGIT_MESSAGE = true;
-	private static final String UR_LEGIT = "Ur legit!";
 	private static final String FOUND_TRUTH_MESSAGE = "Dats the truth!";
-	private boolean isLegit = false;
 	private LocalServer fakeageServer;
-	private PrintWriter writer;
+	private FlushWriter writer;
 	private String choice;
 	private int id;
 	private int points;
 	private String truth;
 	private ResponseData data;
 	private String name;
+	private boolean tellTruth;
 	public LocalClient(Socket socket, LocalServer server) throws IOException 
 	{
 		super(socket, server);
 		this.setFakeageServer(server);
-		writer = new PrintWriter(socket.getOutputStream());
+		writer = new FlushWriter(socket.getOutputStream());
+		writer.println("Name pls?");
 	}
 
 	public void dealWithInput(String input) 
-	{
-		if(!isLegit() && input != null)
+	{	
+		if(input != null && !input.equals(""))
 		{
-			if(input.equalsIgnoreCase(this.getFakeageServer().getPassword()))
+			if(this.getName() == null)
 			{
-				this.setLegit(true);
-				if(SHOULD_SEND_UR_LEGIT_MESSAGE)
-				{
-					writer.println(UR_LEGIT);
-					writer.flush();
-				}
-				else
-					this.setLegit(false);
-				return;
-			}	
-		}
-		else if(input != null && !input.equals(""))
-		{
-			setChoice(input);
+				this.setName(input);
+			}
+			else
+			{
+				setChoice(input);
+			}
 		}
 	}
 
 	private void setChoice(String input) 
 	{
-		if(input.equalsIgnoreCase(truth))
+		if(input.equalsIgnoreCase(truth) && this.shouldTellTruth())
 			this.sendMessage(FOUND_TRUTH_MESSAGE);
 		else
 			this.choice = input;
-	}
-
-	public boolean isLegit() 
-	{
-		return isLegit;
-	}
-
-	public void setLegit(boolean isLegit)
-	{
-		this.isLegit = isLegit;
 	}
 
 	public LocalServer getFakeageServer() {
@@ -77,7 +59,7 @@ public class LocalClient extends ClientData implements Player
 	@Override
 	public void sayTo(String s) 
 	{
-		this.sendMessage(s);
+		this.writer.println(s);
 	}
 
 	@Override
@@ -151,4 +133,17 @@ public class LocalClient extends ClientData implements Player
 	{
 		name = nm;
 	}
+
+	public boolean shouldTellTruth() {
+		return tellTruth;
+	}
+
+	public void setTellTruth(boolean tellTruth) {
+		this.tellTruth = tellTruth;
+	}
+	public String toString()
+	{
+		return this.getName();
+	}
+
 }

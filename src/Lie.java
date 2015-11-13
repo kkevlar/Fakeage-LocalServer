@@ -1,11 +1,11 @@
 
 public class Lie extends ResponseData
 {
-	private String text;
+	
 	private Player[] origins;
 	public Lie(String choice, Player[] players) 
 	{
-		text = choice;
+		this.setText(choice);
 		origins = players;
 	}
 	public Lie(String choice, Player player)
