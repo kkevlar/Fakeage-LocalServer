@@ -2,7 +2,7 @@ import java.io.IOException;
 
 public class Main implements QuestionPool
 {
-
+	private int count = 0;
 	public static void main(String[] args) throws IOException, InterruptedException
 	{
 		new Main().go(args);
@@ -42,12 +42,27 @@ public class Main implements QuestionPool
 	@Override
 	public Question getQuestion() 
 	{
+		if(count==0)
+		{
 		Question q = new Question();
 		q.setQuestionText("What was the color of George Washington's white horse?");
 		q.setTruth("white");
 		Player p = null;
 		q.setLies(new Lie[]{new Lie("Black",p) , new Lie("HorseyColored",p), new Lie("Pink",p)});
+		count++;
 		return q;
+		}
+		if(count==1)
+		{
+		Question q = new Question();
+		q.setQuestionText("How many books r in the hobbit trilogy?");
+		q.setTruth("3");
+		Player p = null;
+		q.setLies(new Lie[]{new Lie("1",p) , new Lie("2",p), new Lie("4",p), new Lie("5",p)});
+		count++;
+		return q;
+		}
+		return null;
 	}
 
 }

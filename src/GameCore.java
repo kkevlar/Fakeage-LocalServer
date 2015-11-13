@@ -19,6 +19,12 @@ public class GameCore
 	}
 	public void launchGame()
 	{
+		for(int i = 0; i < 2; i++)
+		{
+		runOneRound();
+		}
+		}
+	private void runOneRound() {
 		resetPoints();
 		Question question = qpool.getQuestion();
 		tellTruth(question);
